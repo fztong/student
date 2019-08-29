@@ -1,0 +1,36 @@
+  <h1>添加上课时间</h1>
+
+<%= form_for @classname, url: update_ctime_classnames_path, method: "get" do 
+  |f| %>
+
+  <p>
+    班级信息 <br>
+    <%= @classname.cname %>
+  </p> 
+
+  <%= hidden_field_tag(:id, @classname.id) %>
+
+ <table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+ <table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+  <tr>
+    <th>选择上课时间</th>
+    <th>起始时间</th>
+    <th>结束时间</th>
+    <th>节次</th>
+  </tr>
+  <% CrouesTime.all.reorder(order: :asc).each do |croues_time| %>
+    <tr>
+      <td><%= check_box_tag 'croues_times[]', croues_time.id,@classname.croues_times.ids.include?(croues_time.id)%></td>
+      <td><%= croues_time.start_time %></td>
+      <td><%= croues_time.end_time %></td>
+      <td><%= croues_time.ctime_id %></td>
+    </tr>
+  <% end %>
+  </table>
+ 
+  <p>
+    <%= f.submit "添加"%>
+  </p> 
+  <% end %>
+
+ <%= link_to '返回', classname_path(@classname) %>

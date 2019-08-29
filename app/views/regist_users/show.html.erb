@@ -1,0 +1,16 @@
+<p>
+  <strong>用户名:</strong>
+  <%= @user.email %>
+</p>
+ 
+ 
+<p>
+  <strong>用户身份:</strong>
+  <%= @user.role == "1" ? "admin" : "client"   %>
+</p>
+
+
+<%= link_to '返回', regist_users_path %>
+
+
+

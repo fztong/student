@@ -1,0 +1,25 @@
+<h1>星期</h1>
+<%= link_to '新添星期', new_week_path %>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+  <tr>
+    <th>id</th>
+    <th>星期</th>
+    <th>展示 修改 删除</th>
+    
+  </tr>
+ 
+  <% @weeks.reorder(id: :asc).each do |week| %>
+    <tr>
+      <td><%= week.week %></td>  
+      <td><%= week.week_day %></td> 
+      <td><%= link_to '展示', week_path(week) %>
+          <%= link_to '修改', edit_week_path(week) %>
+          <%= link_to '删除', week_path(week),
+              method: :delete,
+              data: { confirm: '是否确认删除?' }%></td>
+    </tr>
+  <% end %>
+</table>
+<td><%= link_to '返回', classnames_path %></td>
+

@@ -1,0 +1,39 @@
+ <h1>添加学生信息</h1>
+
+<%= form_for @classname, url: update_stud_classnames_path, method: "get" do 
+  |f| %>
+
+  <p>
+    班级信息 <br>
+    <%= @classname.cname %>
+  </p> 
+
+  <%= hidden_field_tag(:id, @classname.id) %>
+
+ <table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+ <table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+  <tr>
+    <th>选择学生</th>
+    <th>学生姓名</th>
+    <th>学生年龄</th>
+    <th>学生性别</th>
+    <th>所在班级</th> 
+  </tr>
+   <% @stus.includes(:classname).reorder(sage: :desc,id: :asc).each do |stu| %>
+    <tr>
+      <td><%= check_box_tag 'stus[]', stu.id,@classname.stus.ids.include?(stu.id)%></td>
+      <td><%= stu.sname %></td>
+      <td><%= stu.sage  %></td>
+      <td><%= stu.ssex == "1" ? "男" : "女"   %></td>
+      <td><%= stu.classname.try(:cname) %></td>
+    </tr>
+  <% end %>  
+
+  </table>
+ 
+  <p>
+    <%= f.submit "添加"%>
+  </p> 
+  <% end %>
+
+ <%= link_to '返回', classname_path(@classname) %>

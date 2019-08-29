@@ -1,0 +1,35 @@
+
+<h1>教师信息</h1>
+<%= link_to '新建教师', new_teacher_path %>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+  <tr>
+    <th>教师姓名</th>
+    <th>教师年龄</th>
+    <th>教师性别</th>
+    <th>手机号码</th>
+    <th>教师班级</th>
+    <th>教授课程</th>
+    <th>展示 修改  删除</th>
+    
+  </tr>
+ 
+  <% @teachers.includes(:classname, :course).each do |teacher| %>
+    <tr>
+      <td><%= teacher.tname %></td>
+      <td><%= teacher.tage  %></td>
+      <td><%= teacher.tsex == "1" ? "男" : "女"   %></td>
+      <td><%= teacher.phonenumber  %></td>
+      <td><%= teacher.classname.try(:cname)%></td>
+      <td><%= teacher.course.try(:coursename)%></td>
+      <td><%= link_to '展示', teacher_path(teacher) %>
+          <%= link_to '修改', edit_teacher_path(teacher) %>
+          <%= link_to '删除', teacher_path(teacher),
+              method: :delete,
+              data: { confirm: '是否确认删除?' }%></td>
+    </tr>
+  <% end %>
+</table>
+<%#= paginate @teachers %>
+<%= will_paginate @teachers, :previous_label => '上一页', :next_label => '下一页' %>
+<td><%= link_to '返回', classnames_path %></td>

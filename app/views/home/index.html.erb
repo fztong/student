@@ -1,0 +1,13 @@
+<h1>欢迎！</h1>
+
+<% if current_user.admin? %>     <!-- #管理员用户 -->
+  <%= link_to "班级信息", classnames_path %>
+  <% elsif current_user.client? %>    <!--  #普通用户 -->
+  <%= link_to "Client", clients_path %>
+  <% else %>
+  <% root_path %>
+<% end %>
+
+
+<%#= link_to "留言备注", lists_path %>
+<%#= link_to "班级信息", classnames_path %>

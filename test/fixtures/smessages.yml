@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stuname: MyString
+  stuage: MyString
+  stuclass: MyString
+  stusex: MyString
+  stu: one
+
+two:
+  stuname: MyString
+  stuage: MyString
+  stuclass: MyString
+  stusex: MyString
+  stu: two

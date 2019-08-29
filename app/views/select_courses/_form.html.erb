@@ -1,0 +1,68 @@
+  <%= form_for @select_course do |f| %>
+
+  <p>
+    选择学生 <br>
+    <%= f.select "stu_id", options_for_select(Stu.all.map{|s| [s.sname, s.id]}), prompt: "请选择"%>
+  </p>
+
+  <p>
+    选择课程 <br>
+    <%= f.select "course_id", options_for_select(Course.all.map{|c| [c.coursename, c.id]}), prompt: "请选择"%>
+  </p>
+
+  <p class="show_select">
+    选择任课教师 <br>
+    <%= f.select "teacher_id", options_for_select([]), prompt: "请选择"%>
+
+  </p>
+
+  <p>
+    <%= f.submit "提交" %>
+  </p>
+ 
+  <% end %>
+
+<script type="text/javascript">
+
+  $(function(){
+    var course_id = "<%= @select_course.course_id%>"
+    $.ajax({ url: "/select_courses/query_teacher?course_id=" +course_id, 
+      context: 'json', 
+      success: function(data){
+        if (data.success) {
+          $(".show_select").show();
+          var str =""
+          $.each(data.teachers,function(i,v){
+          str += "<option value='" + v[1]+ "'>" +v[0]+ "</option>"  
+          });
+          $("#select_course_teacher_id").append(str)
+          $("#select_course_teacher_id").val("<%= @select_course.teacher_id%>")
+        }
+      }
+    });
+    
+    $('#select_course_course_id').change(function(){
+      var course_id = $(this).val()
+      $.ajax({ url: "/select_courses/query_teacher?course_id="+ course_id, 
+        context: 'json', 
+        success: function(data){
+          if (data.success) {
+            $(".show_select").show();
+            var str =""
+            $.each(data.teachers,function(i,v){
+            str += "<option value='" + v[1]+ "'>" +v[0]+ "</option>"  
+            });
+            $("#select_course_teacher_id").append(str)
+           // $("#select_course_teacher_id").html(str)
+            alert("该课程有任课教师，请选择一位！");
+           
+          }else { 
+            $(".show_select").hide();
+            alert("该课程尚未拥有任课教师！");
+          }
+        }
+      });
+    })
+  })
+
+</script>

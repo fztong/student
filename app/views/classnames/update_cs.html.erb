@@ -1,0 +1,26 @@
+<h1>添加课程</h1>
+<%= form_for @classname, url: update_course_classnames_path, method: "get" do 
+	|f| %>
+    <%= hidden_field_tag(:id, @classname.id) %>
+   <p>
+    课程时间 <br>
+    <%= select_tag "croues_time_id", options_for_select(CrouesTime.all.map{|c| [c.ctime_id, c.id]}), prompt: "请选择"%>
+  </p>
+  
+  <p>
+    课程日期 <br>
+    <%= select_tag "week_id", options_for_select([["星期一", 1], ["星期二", 2], ["星期三", 3], ["星期四", 4], ["星期五", 5], ["星期六", 6]]), prompt: "请选择"%>
+  </p>
+
+  <p>
+    课程名称 <br>
+    <%= select_tag "course_id", options_for_select(Course.all.map{|s| [s.coursename, s.id]}), prompt: "请选择"%>
+  </p>
+ 
+  <p>
+    <%= f.submit "更新"%>
+  </p>
+ 
+  <% end %>
+
+<%= link_to '返回', classnames_path(@classname) %>

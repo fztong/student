@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cname: MyString
+  ctext: MyText
+  classpage: one
+
+two:
+  cname: MyString
+  ctext: MyText
+  classpage: two

@@ -1,0 +1,28 @@
+<h1>选课目录</h1>
+<%= link_to '新添选课', new_select_course_path %>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+  <tr>
+    <th>学生名</th>
+    <th>课程名</th>
+    <th>任课老师</th>
+    <th>展示 修改 删除</th>
+    
+  </tr>
+ 
+  <% @select_courses.each do |select_course| %>
+    <tr>
+  
+      <td><%= select_course.stu.try(:sname) %></td> 
+      <td><%= select_course.course.try(:coursename) %></td>  
+      <td><%= select_course.teacher.try(:tname) %></td> 
+      <td><%= link_to '展示', select_course_path(select_course) %>
+          <%= link_to '修改', edit_select_course_path(select_course) %>
+          <%= link_to '删除', select_course_path(select_course),
+              method: :delete,
+              data: { confirm: '是否确认删除?' }%></td>
+    </tr>
+  <% end %>
+</table>
+<td><%= link_to '返回', classnames_path %></td>
+

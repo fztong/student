@@ -1,0 +1,20 @@
+<p>
+  <strong>学生名:</strong>
+  <%= @select_course.stu.try(:sname) %>
+</p>
+ 
+<p>
+  <strong>课程名:</strong>
+  <%= @select_course.course.try(:coursename) %>
+</p>
+
+<p>
+  <strong>任课老师:</strong>
+  <%= @select_course.teacher.try(:tname) %>
+</p>
+
+
+<%= link_to '返回', select_courses_path %>
+
+
+

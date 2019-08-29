@@ -1,0 +1,26 @@
+
+<h1>用户信息</h1>
+<%= link_to '新建用户', new_regist_user_path %>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+  <tr>
+    <th>用户名</th>
+    <th>用户身份</th>
+    <th>展示 修改 删除</th>
+    
+  </tr>
+ 
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.role == "1" ? "admin" : "client"  %></td>
+      <td><%= link_to '展示', regist_user_path(user) %>
+          <%= link_to '修改', edit_regist_user_path(user) %>
+          <%= link_to '删除', regist_user_path(user),
+              method: :delete,
+              data: { confirm: '是否确认删除?' }%></td>
+    </tr>
+  <% end %>
+</table>
+<td><%= link_to '返回', classnames_path %></td>
+

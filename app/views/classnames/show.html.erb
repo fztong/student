@@ -1,0 +1,115 @@
+ <p>
+   <strong>班级序号:</strong>
+   <%= @classname.cno %>
+  </p>
+ <p>
+   <strong>班级名称:</strong>
+   <%= @classname.cname %>
+ </p>
+
+ <p>
+   <strong>班级信息:</strong>
+   <%= @classname.ctext %>
+ </p>
+ 
+ <p>
+   <strong>班主任:</strong>
+   <%= @classname.teacher.try(:tname) %>  
+   <!-- try(: name）为空不报错  -->    
+ </p>
+
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+   <tr>
+     <th>任课教师</th>
+     <th>教授课程</th>
+     <th>操   作</th>
+   </tr>
+ <p>
+    <strong>任课教师:</strong>
+  <% @classname.teachers.includes(:course).each do |teacher| %>
+      <tr>
+        <td><%= teacher.tname  %></td>
+        <td><%= teacher.course.try(:coursename) %></td>
+        <td><%= link_to '删除', destroy_tname_classnames_path(teacher_id: teacher.id, 
+        id: @classname.id),         #未定义classname要加@
+              method: :get,   #地址调用要注意
+              data: { confirm: '是否确认删除?' }%>
+          </td>
+      </tr>
+    <%end%>
+  </p>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+   <tr>
+     <th>学生姓名</th>
+     <th>学生学号</th>
+     <th>学生年龄</th>
+     <th>学生性别</th>
+     <th>学生班级</th>
+     <th>操   作</th>
+   </tr>
+
+ <p>
+    <strong>学生信息:</strong>
+      <% @classname.stus.each do |stu| %>
+      <tr>
+        <td><%= stu.sname  %></td>
+        <td><%= stu.sno    %></td>
+        <td><%= stu.sage   %></td>   
+        <td><%= stu.ssex == "1" ? "男" : "女"    %></td>
+        <td><%= @classname.cname %></td>
+        <td><%= link_to '修改', update_cname_classnames_path(stu_id: stu.id) %></td>
+      </tr>
+    <%end%>
+  </p>
+</table> <br>
+
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+   <tr>
+      <th>时间</th>
+      <th>节次</th>
+      <th>星期一</th>
+      <th>星期二</th>
+      <th>星期三</th>
+      <th>星期四</th>
+      <th>星期五</th>
+      <th>星期六</th>
+    </tr>
+    
+     <% @classname.croues_times.reorder(order: :asc).each_with_index do |time, index| %>
+     <%# CrouesTime.all.reorder(order: :asc).each_with_index do |time, index| %>
+      <tbody>
+      <tr>
+        <td><%= time.start_time%>-<%= time.end_time%></td>  
+        <td><%= time.ctime_id%></td>  
+
+        <td><%= ClassCourse.find_by(week: 1, croues_time_id: time.id, classname_id: @classname.id)&.course.try(:coursename)%></td>
+        <td><%= @classname.class_courses.find_by(week: 2, croues_time_id: time.id)&.course.try(:coursename)%></td>
+        <td><%= @classname.class_courses.find_by(week: 3, croues_time_id: time.id)&.course.try(:coursename)%></td>
+        <td><%= @classname.class_courses.find_by(week: 4, croues_time_id: time.id)&.course.try(:coursename)%></td>
+        <td><%= @classname.class_courses.find_by(week: 5, croues_time_id: time.id)&.course.try(:coursename)%></td>
+        <td><%= @classname.class_courses.find_by(week: 6, croues_time_id: time.id)&.course.try(:coursename)%></td>
+      </tr>
+   <%end%>
+ </tbody>
+</table>
+
+
+
+
+<%= link_to '更改班主任', update_tname_classnames_path(id: @classname.try( :id ))%> |
+<%= link_to '新添任课教师', update_tcname_classnames_path(id: @classname.try( :id ))%> |
+<%= link_to '批量添加任课教师', update_teas_classnames_path(id: @classname.try( :id ))%> <br>
+<%= link_to '新添学生信息', update_sname_classnames_path(id: @classname.try( :id ))%> |
+<%= link_to '批量添加学生信息', update_stus_classnames_path(id: @classname.try( :id ))%> <br>
+<%= link_to '添加上课时间',     update_ct_classnames_path(id: @classname.try( :id ))%> |
+<%= link_to '修改课程表',     update_cs_classnames_path(id: @classname.try( :id ))%> <br>
+<%= link_to '修改班级信息', edit_classname_path(@classname) %> <br>
+<%= link_to '返回', classnames_path %>
+
+<!-- 键值对要匹配 注意controller里params里也要相应更改 -->
+

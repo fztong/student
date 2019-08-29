@@ -1,0 +1,22 @@
+   <h1>更改班主任</h1>
+
+<%= form_for @classname, url: update_tclazz_classnames_path, method: "get" do 
+	|f| %>
+
+  <p>
+    班级信息 <br>
+    <%= @classname.cname %>
+  </p> 
+  <%= hidden_field_tag(:id, @classname.id) %>
+  <p>
+    班主任姓名 <br>
+    <%= select_tag "teacher_id", options_for_select(Teacher.all.map{|t| [t.tname, t.id]}), prompt: "请选择"%>
+  </p> 
+
+  <p>
+    <%= f.submit "更换班主任"%>
+  </p>
+ 
+  <% end %>
+
+ <%= link_to '返回', classname_path(@classname) %>

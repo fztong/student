@@ -1,0 +1,35 @@
+
+<p>
+  <strong>教师姓名:</strong>
+  <%= @teacher.tname %>
+</p>
+
+<p>
+  <strong>教师年龄:</strong>
+  <%= @teacher.tage %>
+</p>
+
+<p>
+  <strong>教师性别:</strong>
+  <%= @teacher.tsex == "1" ? "男" : "女"   %>
+</p>
+<p>
+  <strong>手机号码:</strong>
+  <%= @teacher.phonenumber %>
+</p>
+ 
+<p>
+  <strong>教师班级:</strong>
+  <%= @teacher.classname.try(:cname)%>
+</p>
+ 
+<p>
+  <strong>教授课程:</strong>
+  <%= @teacher.course.try(:coursename)%>
+</p>
+ 
+<%= link_to '修改', edit_teacher_path(@teacher) %> |
+<%= link_to '返回', teachers_path %>
+
+
+

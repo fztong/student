@@ -1,0 +1,32 @@
+ <h1>添加任课教师</h1>
+
+<%= form_for @classname, url: update_tcourse_classnames_path, method: "get" do 
+  |f| %>
+
+  <p>
+    班级信息 <br>
+    <%= @classname.cname %>
+  </p> 
+  <%= hidden_field_tag(:id, @classname.id) %>
+  <p>
+    教师姓名 <br> 
+    
+   <!--  @c = Classname.find_by(id: params[:classname_id])
+    @a=Teacher.all
+    @b=c.teachers
+    @d=a-b  数组中去除已有的元素 下拉框显示剩下的-->
+  
+  <%= select_tag "teacher_id", options_for_select((Teacher.all-@classname.teachers ).map{|t| [t.tname, t.id]}), prompt: "请选择"%>
+
+ 
+  </p> 
+
+
+
+  <p>
+    <%= f.submit "添加"%>
+  </p>
+ 
+  <% end %>
+
+ <%= link_to '返回', classname_path(@classname) %>

@@ -1,0 +1,35 @@
+<p>
+  <strong>学生姓名:</strong>
+  <%= @stu.sname %>
+</p>
+ 
+<p>
+  <strong>学生学号:</strong>
+  <%= @stu.sno %>
+</p>
+ 
+<p>
+  <strong>学生年龄:</strong>
+  <%= @stu.sage %>
+</p>
+
+<p>
+  <strong>学生性别:</strong>
+  <%= @stu.ssex == "1" ? "男" : "女"   %>
+</p>
+
+<p>
+  <strong>学生班级:</strong>
+  <%= @stu.classname.try(:cname)%>
+</p>
+
+<p>
+   <strong>学生照片:</strong><br>
+  <%= image_tag @stu&.photo&.url   %>
+</p>
+
+
+<%= link_to '返回', stus_path %>
+
+
+

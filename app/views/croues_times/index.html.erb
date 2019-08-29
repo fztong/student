@@ -1,0 +1,29 @@
+<h1>上课时间</h1>
+<%= link_to '新添上课时间', new_croues_time_path %>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+  <tr>
+    <th>起始时间</th>
+    <th>结束时间</th>
+    <th>上课节次</th>
+    <th>序号</th>
+    <th>展示 修改 删除</th>
+    
+  </tr>
+ 
+  <% @croues_times.reorder(order: :asc).each do |croues_time| %>
+    <tr>
+      <td><%= croues_time.start_time  %></td>
+      <td><%= croues_time.end_time %></td>  
+      <td><%= croues_time.ctime_id %></td>  
+      <td><%= croues_time.order %></td>   
+      <td><%= link_to '展示', croues_time_path(croues_time) %>
+          <%= link_to '修改', edit_croues_time_path(croues_time) %>
+          <%= link_to '删除', croues_time_path(croues_time),
+              method: :delete,
+              data: { confirm: '是否确认删除?' }%></td>
+    </tr>
+  <% end %>
+</table>
+<td><%= link_to '返回', classnames_path %></td>
+

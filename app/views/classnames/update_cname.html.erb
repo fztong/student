@@ -1,0 +1,17 @@
+<h1>修改学生班级</h1>
+<%= form_for @stu, url: update_clazz_classnames_path, method: "get" do 
+	|f| %>
+  <%= hidden_field_tag(:stu_id, @stu.id) %>
+  <p>
+    学生班级 <br>
+    <%= select_tag "classname_id", options_for_select(Classname.all.map{|c| [c.cname, c.id]}), prompt: "请选择"%>
+  
+  </p>
+ 
+  <p>
+    <%= f.submit "更新"%>
+  </p>
+ 
+  <% end %>
+
+<%= link_to '返回', classnames_path(@classname) %>

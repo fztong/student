@@ -1,0 +1,27 @@
+  <%= form_for @croues_time do |f| %>
+ 
+  <p>
+    起始时间<br>
+    <%= f.text_field :start_time %>
+  </p>
+ 
+  <p>
+    结束时间 <br>
+    <%= f.text_field :end_time  %>
+  </p>
+
+  <p>
+    上课节次 <br>
+    <%= f.text_field :ctime_id  %>
+  </p>
+
+   <p>
+     序号 <br>
+    <%= f.text_field :order %>
+  </p>
+
+  <p>
+    <%= f.submit "提交" %>
+  </p>
+ 
+  <% end %>

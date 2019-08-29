@@ -1,0 +1,40 @@
+ <h1>添加任课教师</h1>
+
+<%= form_for @classname, url: update_teacher_classnames_path, method: "get" do 
+  |f| %>
+
+  <p>
+    班级信息 <br>
+    <%= @classname.cname %>
+  </p> 
+
+  <%= hidden_field_tag(:id, @classname.id) %>
+
+ <table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;”>
+ <table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse;border-width:0px; border-style:hidden;">
+  <tr>
+    <th>选择教师</th>
+    <th>教师姓名</th>
+    <th>教师年龄</th>
+    <th>教师性别</th>
+    <th>教授课程</th>
+    <th>教授班级数量</th>   
+  </tr>
+  <% @teachers.includes( :course, :classname).reorder(tage: :desc,id: :asc).each do |teacher| %>
+    <tr>
+      <td><%= check_box_tag 'teachers[]', teacher.id,@classname.teachers.ids.include?(teacher.id)%></td>
+      <td><%= teacher.tname %></td>
+      <td><%= teacher.tage  %></td>
+      <td><%= teacher.tsex == "1" ? "男" : "女"   %></td>
+      <td><%= teacher.course.try(:coursename)%></td>
+      <td><%= teacher.classname_ids.size%></td>
+    </tr>
+  <% end %>
+  </table>
+ 
+  <p>
+    <%= f.submit "添加"%>
+  </p> 
+  <% end %>
+
+ <%= link_to '返回', classname_path(@classname) %>

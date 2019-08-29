@@ -1,0 +1,22 @@
+ <h1>添加学生</h1>
+
+<%= form_for @classname, url: update_student_classnames_path, method: "get" do 
+  |f| %>
+
+  <p>
+    班级信息 <br>
+    <%= @classname.cname %>
+  </p> 
+  <%= hidden_field_tag(:id, @classname.id) %>
+  <p>
+    学生姓名 <br>
+    <%= select_tag "stu_id", options_for_select((Stu.all - @classname.stus).map{|s| [s.sname, s.id]}), prompt: "请选择"%>
+  </p> 
+
+  <p>
+    <%= f.submit "添加"%>
+  </p>
+ 
+  <% end %>
+
+ <%= link_to '返回', classname_path(@classname) %>
