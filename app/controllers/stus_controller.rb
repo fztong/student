@@ -44,7 +44,6 @@ class StusController < ApplicationController
 
 # 调接口传数据
   def create_student
-    stu = ""
     stu = Stu.new(sname: params[:stu][:sname], ssex: params[:stu][:ssex])
     stu.sage = params[:stu][:sage]
     stu.sno = params[:stu][:sno]
