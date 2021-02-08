@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.3.0'
 gem 'rest-client'
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 gem 'ransack'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
